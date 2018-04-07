@@ -1,9 +1,10 @@
 package com.yun.service.impl;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,25 +22,16 @@ public class FacebookHelperServiceImpl implements HelperService {
 
 	@Override
 	public List<Place> storeResultToList(List<Place> resultList, Connection<Place> result, SearchParams params) throws Exception {
-		/*resultList = result.getData();
 		
-		resultList.stream().filter(
-				p -> !(p.getLocation().getCountry() == null || p.getLocation().getCity() == null) 
-	    		&& p.getLocation().getCountry().toLowerCase().equals(params.getCountry().toLowerCase())
-	    		&& p.getLocation().getCity().toLowerCase().equals(params.getCity().toLowerCase())
-	    		);*/
-			
-		Iterator<Place> it = result.getData().iterator();
-	    
-	    while(it.hasNext()) {
-	    	Place p = (Place) it.next();
-	    	
-	    	if(!(p.getLocation().getCountry() == null || p.getLocation().getCity() == null) 
-	    			&& p.getLocation().getCountry().toLowerCase().equals(params.getCountry().toLowerCase())
-		    		&& p.getLocation().getCity().toLowerCase().equals(params.getCity().toLowerCase())) {
-	    		resultList.add(p);
-	    	}
-	    }
+		//store place information from result
+		Stream<Place> stream = result.getData().stream().filter(
+						p -> !(p.getLocation().getCountry() == null || p.getLocation().getCity() == null) 
+			    		&& p.getLocation().getCountry().toLowerCase().equals(params.getCountry().toLowerCase())
+			    		&& p.getLocation().getCity().toLowerCase().equals(params.getCity().toLowerCase())
+			    		);
+
+		resultList.addAll(stream.collect(Collectors.toList()));
+		
 	    
 	    return resultList;
 		
@@ -47,10 +39,11 @@ public class FacebookHelperServiceImpl implements HelperService {
 	
 	@Override
 	public JSONArray convertListToJSONArray(List<Place> list, JSONArray jarr) throws Exception {
-		/* Map<String, Object> resultMap = new LinkedHashMap<>();
 		
 		list.stream().forEach(i ->
 					{
+						Map<String, Object> resultMap = new LinkedHashMap<>();
+						
 						resultMap.put("name", i.getName());
 						resultMap.put("latitude", i.getLocation().getLatitude());
 						resultMap.put("longitude", i.getLocation().getLongitude());
@@ -59,20 +52,8 @@ public class FacebookHelperServiceImpl implements HelperService {
 						
 						jarr.put(job);
 					}
-				);*/
+				);
 		
-		
-		for(Place pl : list) {
-			LinkedHashMap<String, Object> tmap = new LinkedHashMap<>();
-			
-			tmap.put("name", pl.getName());
-	    	tmap.put("latitude", pl.getLocation().getLatitude());
-	    	tmap.put("longitude", pl.getLocation().getLongitude());
-	    	
-	    	JSONObject job = new JSONObject(tmap);
-			
-			jarr.put(job);
-		}
 		
 		return jarr;
 		
@@ -104,6 +85,8 @@ public class FacebookHelperServiceImpl implements HelperService {
 			modelAndView.addObject("otheroutput", mapper.writerWithDefaultPrettyPrinter().writeValueAsString(otherJsonObject));
 		}
 	}
-
+	
+	
+	
 	
 }

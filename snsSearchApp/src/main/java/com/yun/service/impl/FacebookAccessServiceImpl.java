@@ -10,7 +10,7 @@ import com.yun.service.SnsAccessService;
 public class FacebookAccessServiceImpl implements SnsAccessService {
 
 	private String getAccessToken() throws Exception {
-		String accessToken = "EAACEdEose0cBAEVi3PMWB6fTFOXvj0vDhYek3L75FSVsWqO6duZBfvAsitrmHxBrM61dRug34dgE6hEtzlAs8VqdVyiMdJuq3sIZA0RwhmScasujF7QMfGCaXcC2nU72T7eSlXlpUAEMnMNtSiP0AWD2dsMIdFvMPAdaro2dZCd0Gal50S6B4TuyeCtjeHseUMhL5jC0wZDZD";
+		String accessToken = "EAACEdEose0cBALfcUh7lis5KsmRwD7s7RCYhYg3hHV6iNTm957QhDH6fLZA3MNo9TFmv2nVC9oEv71OZBtOZCV8nm8CetPIXHw93T1NngLTGZBOGTZACJY5NyxfeWrmPxYQpYpuOcrajKKSnl8hziBpjAoqHxBN96mfM9jpQBZC6swP3Gjgm6AfnBJid1trXUVCGkxKJkvTAZDZD";
 		
 		return accessToken;
 	}

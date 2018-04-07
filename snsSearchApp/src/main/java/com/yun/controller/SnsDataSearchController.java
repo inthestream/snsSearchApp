@@ -69,18 +69,3 @@ public class SnsDataSearchController {
 	}
 }
 
-
-/*while(hasNextPage) {
-morePlaces = searchService.searchWithPageCursor(fClient, params, morePlaces);
-placeList = helperService.storeResultToList(placeList, morePlaces, params);
-
-if(searchService.isSearchMorePage(morePlaces)) {
-	params.setAfterCursor(morePlaces.getAfterCursor());
-} else {
-	hasNextPage = false;
-}
-}*/
-
-/*while(searchService.isSearchMore(searchService.searchMore(fClient, params, morePlaces))) {
-placeList = helperService.storeResultToList(placeList, morePlaces, params);
-}*/

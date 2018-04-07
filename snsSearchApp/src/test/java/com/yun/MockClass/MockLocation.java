@@ -1,11 +1,13 @@
 package com.yun.MockClass;
 
+import com.restfb.types.Location;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class MockLocation {
+public class MockLocation extends Location{
 
 	String country;
 	
