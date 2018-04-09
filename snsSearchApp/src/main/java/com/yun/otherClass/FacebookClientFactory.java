@@ -10,7 +10,7 @@ private final FacebookClient facebookClient;
 	
 	public FacebookClientFactory(String accessToken) throws Exception {
 		
-		facebookClient = new DefaultFacebookClient(accessToken, Version.VERSION_2_5);
+		facebookClient = new DefaultFacebookClient(accessToken, Version.VERSION_2_12);
 	}
 	
 	public FacebookClient getFacebookClient() {

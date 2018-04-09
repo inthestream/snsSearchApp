@@ -1,60 +1,79 @@
 package com.yun;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
+import org.json.JSONArray;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.restfb.Connection;
-import com.yun.MockClass.MockPlace;
-import com.yun.controller.SnsDataSearchController;
+import com.restfb.types.Location;
+import com.restfb.types.Place;
 import com.yun.domain.SearchParams;
 import com.yun.service.HelperService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(SnsDataSearchController.class)
+@SpringBootTest
 public class FacebookHelperServiceTest {
 
 	@Autowired
 	HelperService helperService;
 	
-	/*@Test
+	@Test
 	public void storeResultToListTest() throws Exception {
+		List<Place> list = new ArrayList<>();
 		
-		List<MockPlace> list = makeMockPlaceList();
+		IntStream.range(0, 2).forEach(i -> {
+			Place mockPlace = mock(Place.class);
+			when(mockPlace.getName()).thenReturn("egnyte" + i);
+			
+			Location mockLocation = mock(Location.class);
+			when(mockLocation.getCity()).thenReturn("poznan");
+			when(mockLocation.getCountry()).thenReturn("poland");
+			
+			when(mockPlace.getLocation()).thenReturn(mockLocation);
+			
+			list.add(mockPlace);
+		});
 		
-		Connection<MockPlace> r = null;
+		Connection<Place> result = mock(Connection.class);
+		when(result.getData()).thenReturn(list);
 		
 		SearchParams params = new SearchParams();
+		params.setCity("poznan");
+		params.setCountry("poland");
 		
-		helperService.storeResultToList(list, result, params);
+		assertTrue(helperService.storeResultToList(new ArrayList<Place>(), result, params).size() == 2);
+		assertTrue(helperService.storeResultToList(new ArrayList<Place>(), result, params).get(0).getName().equals("egnyte0"));
+	}
+	
+	@Test
+	public void convertListToJSONArrayTest() throws Exception {
+		List<Place> list = new ArrayList<>();
 		
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*private List<MockPlace> makeMockPlaceList() throws Exception {
-		
-		List<MockPlace> list = new ArrayList<>();
-		
-		for(int i = 0; i < 5; i++) {
-			MockPlace mockPlace = new MockPlace("name" + i, "country" + i, "city" + i);
+		IntStream.range(0, 2).forEach(i -> {
+			Place mockPlace = mock(Place.class);
+			when(mockPlace.getName()).thenReturn("egnyte" + i);
+			
+			Location mockLocation = mock(Location.class);
+			when(mockLocation.getCity()).thenReturn("poznan");
+			when(mockLocation.getCountry()).thenReturn("poland");
+			
+			when(mockPlace.getLocation()).thenReturn(mockLocation);
+			
 			list.add(mockPlace);
-		}
+		});
 		
-		return list;
-		
-	}*/
+		assertTrue(helperService.convertListToJSONArray(list, new JSONArray()).length() == 2);
+	}
+	
 }
